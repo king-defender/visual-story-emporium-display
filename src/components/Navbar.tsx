@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { Button } from './ui/button';
 
@@ -27,17 +28,18 @@ const Navbar: React.FC = () => {
       }`}
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between">
-        <a href="#" className="font-serif text-xl md:text-2xl font-medium hover:text-gold transition-colors">
+        <Link to="/" className="font-serif text-xl md:text-2xl font-medium hover:text-gold transition-colors">
           <span className="text-gold">A</span>rt<span className="text-gold">D</span>irector
-        </a>
+        </Link>
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex space-x-8">
-          <a href="#home" className="nav-link">Home</a>
-          <a href="#portfolio" className="nav-link">Portfolio</a>
-          <a href="#props" className="nav-link">Props</a>
-          <a href="#about" className="nav-link">About</a>
-          <a href="#contact" className="nav-link">Contact</a>
+          <Link to="/" className="nav-link">Home</Link>
+          <Link to="/portfolio" className="nav-link">Portfolio</Link>
+          <Link to="/gallery" className="nav-link">Gallery</Link>
+          <Link to="/props" className="nav-link">Props</Link>
+          <Link to="/about" className="nav-link">About</Link>
+          <Link to="/contact" className="nav-link">Contact</Link>
         </div>
 
         {/* Mobile Menu Button */}
@@ -53,11 +55,12 @@ const Navbar: React.FC = () => {
       {/* Mobile Navigation */}
       {isMobileMenuOpen && (
         <div className="md:hidden absolute top-full left-0 right-0 bg-background shadow-md py-4 px-6 flex flex-col space-y-4 animate-fade-in">
-          <a href="#home" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Home</a>
-          <a href="#portfolio" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Portfolio</a>
-          <a href="#props" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Props</a>
-          <a href="#about" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>About</a>
-          <a href="#contact" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Contact</a>
+          <Link to="/" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Home</Link>
+          <Link to="/portfolio" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Portfolio</Link>
+          <Link to="/gallery" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Gallery</Link>
+          <Link to="/props" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Props</Link>
+          <Link to="/about" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>About</Link>
+          <Link to="/contact" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Contact</Link>
         </div>
       )}
     </nav>

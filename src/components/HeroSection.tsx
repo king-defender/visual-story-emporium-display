@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from './ui/button';
 import { ArrowDown } from 'lucide-react';
 
@@ -23,23 +24,23 @@ const HeroSection: React.FC = () => {
           with prop rentals available for your creative projects.
         </p>
         <div className="flex flex-col md:flex-row gap-4 md:gap-6 justify-center md:justify-start animate-fade-in" style={{ animationDelay: "0.4s" }}>
-          <Button size="lg" className="bg-gold hover:bg-gold/90 text-white" onClick={() => document.getElementById('portfolio')?.scrollIntoView({behavior: 'smooth'})}>
-            View Work
+          <Button size="lg" className="bg-gold hover:bg-gold/90 text-white" asChild>
+            <Link to="/portfolio">View Work</Link>
           </Button>
-          <Button variant="outline" size="lg" className="border-white text-white hover:bg-white/10" onClick={() => document.getElementById('props')?.scrollIntoView({behavior: 'smooth'})}>
-            Rent Props
+          <Button variant="outline" size="lg" className="border-white text-white hover:bg-white/10" asChild>
+            <Link to="/props">Rent Props</Link>
           </Button>
         </div>
       </div>
       
       {/* Scroll Down */}
-      <a 
-        href="#portfolio" 
+      <Link 
+        to="/portfolio" 
         className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white flex flex-col items-center opacity-70 hover:opacity-100 transition-opacity"
       >
         <span className="mb-2 text-sm">Explore</span>
         <ArrowDown className="animate-bounce" />
-      </a>
+      </Link>
     </section>
   );
 };
