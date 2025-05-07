@@ -1,5 +1,4 @@
-
-import { PortfolioItem, PropItem } from '../types/portfolio';
+import { PortfolioItem, PropItem, GalleryImage } from '../types/portfolio';
 
 export const portfolioItems: PortfolioItem[] = [
   {
@@ -103,7 +102,7 @@ export const propItems: PropItem[] = [
   }
 ];
 
-export const galleryImages = [
+export const galleryImages: GalleryImage[] = [
   {
     id: 1,
     src: "https://images.unsplash.com/photo-1513836279014-a89f7a76ae86",

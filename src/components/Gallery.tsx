@@ -1,10 +1,21 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { galleryImages } from '../data/portfolioData';
 import { AspectRatio } from './ui/aspect-ratio';
 import { cn } from '@/lib/utils';
+import { Button } from './ui/button';
 
 export const Gallery = () => {
+  const [activeCategory, setActiveCategory] = useState<string>('all');
+  
+  // Get unique categories for filter buttons
+  const categories = ['all', ...new Set(galleryImages.map(image => image.category))];
+  
+  // Filter images based on active category
+  const filteredImages = activeCategory === 'all' 
+    ? galleryImages 
+    : galleryImages.filter(image => image.category === activeCategory);
+
   return (
     <section id="gallery" className="section bg-muted">
       <div className="container px-4">
@@ -13,16 +24,31 @@ export const Gallery = () => {
           Candid moments and spontaneous shots from various projects and locations.
         </p>
 
+        {/* Category filters */}
+        <div className="flex flex-wrap gap-2 mb-8">
+          {categories.map(category => (
+            <Button
+              key={category}
+              variant={activeCategory === category ? "default" : "outline"} 
+              size="sm"
+              className={activeCategory === category ? "bg-gold hover:bg-gold-dark" : ""} 
+              onClick={() => setActiveCategory(category)}
+            >
+              {category === 'all' ? 'All' : category}
+            </Button>
+          ))}
+        </div>
+
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {galleryImages.map((image, index) => (
+          {filteredImages.map((image, index) => (
             <div 
               key={image.id} 
               className={cn(
                 "overflow-hidden rounded-lg group",
-                index === 3 || index === 4 ? "sm:col-span-2" : ""
+                (filteredImages.length >= 5 && (index === 3 || index === 4)) ? "sm:col-span-2" : ""
               )}
             >
-              <AspectRatio ratio={index === 3 || index === 4 ? 16/9 : 1/1}>
+              <AspectRatio ratio={(filteredImages.length >= 5 && (index === 3 || index === 4)) ? 16/9 : 1/1}>
                 <img 
                   src={image.src} 
                   alt={image.alt} 
