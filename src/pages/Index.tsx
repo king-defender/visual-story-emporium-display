@@ -7,6 +7,7 @@ import PropRentalSection from '../components/PropRentalSection';
 import AboutSection from '../components/AboutSection';
 import ContactSection from '../components/ContactSection';
 import Footer from '../components/Footer';
+import { Gallery } from '../components/Gallery';
 
 const Index = () => {
   return (
@@ -14,6 +15,7 @@ const Index = () => {
       <Navbar />
       <HeroSection />
       <PortfolioSection />
+      <Gallery />
       <PropRentalSection />
       <AboutSection />
       <ContactSection />

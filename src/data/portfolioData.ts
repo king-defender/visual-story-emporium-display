@@ -4,61 +4,61 @@ import { PortfolioItem, PropItem } from '../types/portfolio';
 export const portfolioItems: PortfolioItem[] = [
   {
     id: 1,
-    title: "The Journey Within",
+    title: "Set Design - The Journey Within",
     category: "web-series",
     categoryLabel: "Web Series",
     image: "https://images.unsplash.com/photo-1605810230434-7631ac76ec81",
-    description: "A six-part psychological drama exploring the depths of human consciousness through surreal imagery and symbolic storytelling.",
+    description: "Behind-the-scenes capture from the set.",
     client: "Dreamscape Media",
     year: 2023
   },
   {
     id: 2,
-    title: "Urban Rhythms",
+    title: "Live Performance Setup",
     category: "music-videos",
     categoryLabel: "Music Video",
     image: "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7",
-    description: "A vibrant music video showcasing urban dance culture with dynamic visuals and high-energy choreography.",
+    description: "Lighting setup for a live performance shoot.",
     client: "Electric Pulse Records",
     year: 2022
   },
   {
     id: 3,
-    title: "Timeless Elegance",
+    title: "Vintage Collection",
     category: "brand-ads",
     categoryLabel: "Brand Advertisement",
     image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d",
-    description: "A luxury brand campaign emphasizing heritage craftsmanship through meticulously designed vintage-inspired sets.",
+    description: "Styling vintage props for a luxury brand.",
     client: "Heritage Luxe",
     year: 2023
   },
   {
     id: 4,
-    title: "Digital Frontiers",
+    title: "Tech Scene",
     category: "web-series",
     categoryLabel: "Web Series",
     image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b",
-    description: "An episodic exploration of emerging technologies and their impact on society, featuring futuristic set designs.",
+    description: "Set design for a tech-focused episode.",
     client: "NextGen Studios",
     year: 2021
   },
   {
     id: 5,
-    title: "Harmony",
+    title: "Stage Setup",
     category: "music-videos",
     categoryLabel: "Music Video",
     image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158",
-    description: "An ambient music video with ethereal visuals that blend natural landscapes with abstract color compositions.",
+    description: "Quick capture during music video preparation.",
     client: "Sonora Records",
     year: 2022
   },
   {
     id: 6,
-    title: "Fresh Perspective",
+    title: "Minimalist Set Design",
     category: "brand-ads",
     categoryLabel: "Brand Advertisement",
     image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6",
-    description: "A minimalist campaign for an eco-friendly brand focusing on sustainability through clean aesthetics.",
+    description: "Simple, clean aesthetic for eco-brand.",
     client: "GreenLife",
     year: 2023
   }
@@ -67,38 +67,89 @@ export const portfolioItems: PortfolioItem[] = [
 export const propItems: PropItem[] = [
   {
     id: 1,
-    name: "Vintage Film Camera Collection",
+    name: "Vintage Camera Collection",
     category: "Photography Equipment",
     image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b",
-    description: "A collection of fully functional vintage cameras from the 1950s-70s, perfect for period pieces.",
+    description: "Assorted vintage cameras, perfect for period pieces.",
     pricePerDay: 150,
     available: true
   },
   {
     id: 2,
-    name: "Mid-Century Modern Furniture Set",
+    name: "Mid-Century Furniture",
     category: "Furniture",
     image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d",
-    description: "Complete living room set in authentic mid-century modern design, includes sofa, coffee table, and accent chairs.",
+    description: "Authentic mid-century furniture pieces.",
     pricePerDay: 300,
     available: true
   },
   {
     id: 3,
-    name: "Professional Studio Lighting Kit",
+    name: "Studio Lights",
     category: "Lighting Equipment",
     image: "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7",
-    description: "Comprehensive studio lighting setup with softboxes, LED panels, and stands for professional productions.",
+    description: "Professional lighting equipment.",
     pricePerDay: 200,
     available: true
   },
   {
     id: 4,
-    name: "Retro Electronics Collection",
+    name: "Retro Electronics",
     category: "Electronics",
     image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6",
-    description: "Assorted vintage electronics including TVs, radios, and telephones from the 1960s-90s in working condition.",
+    description: "Vintage electronics for set design.",
     pricePerDay: 120,
     available: false
+  }
+];
+
+export const galleryImages = [
+  {
+    id: 1,
+    src: "https://images.unsplash.com/photo-1513836279014-a89f7a76ae86",
+    alt: "Behind the scenes - Forest shoot",
+    category: "Web Series"
+  },
+  {
+    id: 2,
+    src: "https://images.unsplash.com/photo-1500375592092-40eb2168fd21",
+    alt: "Location scouting",
+    category: "Music Video"
+  },
+  {
+    id: 3,
+    src: "https://images.unsplash.com/photo-1449157291145-7efd050a4d0e",
+    alt: "Urban architecture shoot",
+    category: "Brand Ad"
+  },
+  {
+    id: 4,
+    src: "https://images.unsplash.com/photo-1527576539890-dfa815648363",
+    alt: "Building perspectives",
+    category: "Web Series"
+  },
+  {
+    id: 5,
+    src: "https://images.unsplash.com/photo-1518005020951-eccb494ad742",
+    alt: "Urban exploration",
+    category: "Music Video"
+  },
+  {
+    id: 6,
+    src: "https://images.unsplash.com/photo-1469474968028-56623f02e42e",
+    alt: "Natural light shoot",
+    category: "Brand Ad"
+  },
+  {
+    id: 7,
+    src: "https://images.unsplash.com/photo-1487958449943-2429e8be8625",
+    alt: "Exterior set design",
+    category: "Web Series"
+  },
+  {
+    id: 8,
+    src: "https://images.unsplash.com/photo-1492321936769-b49830bc1d1e",
+    alt: "Night scene setup",
+    category: "Music Video"
   }
 ];

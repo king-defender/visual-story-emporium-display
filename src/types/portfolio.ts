@@ -19,3 +19,10 @@ export interface PropItem {
   pricePerDay?: number;
   available: boolean;
 }
+
+export interface GalleryImage {
+  id: number;
+  src: string;
+  alt: string;
+  category: string;
+}
