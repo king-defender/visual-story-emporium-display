@@ -1,11 +1,56 @@
-
-import React from 'react';
-import { Mail, Phone, Instagram, Linkedin, MapPin, Send } from 'lucide-react';
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import { Mail, Phone, Instagram, Linkedin, MapPin, Send, Loader2 } from 'lucide-react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from './ui/form';
+import { useToast } from '@/hooks/use-toast';
+import { submitContactForm } from '@/lib/contact';
+
+const contactSchema = z.object({
+  name: z.string().trim().min(1, 'Please enter your name').max(100),
+  email: z.string().trim().email('Please enter a valid email address').max(255),
+  subject: z.string().trim().max(200).optional(),
+  message: z.string().trim().min(10, 'Message should be at least 10 characters').max(5000),
+});
+
+type ContactFormValues = z.infer<typeof contactSchema>;
 
 const ContactSection: React.FC = () => {
+  const { toast } = useToast();
+  const [submitting, setSubmitting] = useState(false);
+
+  const form = useForm<ContactFormValues>({
+    resolver: zodResolver(contactSchema),
+    defaultValues: { name: '', email: '', subject: '', message: '' },
+  });
+
+  const onSubmit = async (values: ContactFormValues) => {
+    setSubmitting(true);
+    const result = await submitContactForm({
+      name: values.name,
+      email: values.email,
+      subject: values.subject || '',
+      message: values.message,
+    });
+    setSubmitting(false);
+
+    if (!result.success) {
+      toast({
+        title: "Couldn't send your message",
+        description: result.error,
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    toast({ title: 'Message sent', description: "Thanks for reaching out — I'll reply soon." });
+    form.reset();
+  };
+
   return (
     <section id="contact" className="section bg-darkgray text-white">
       <div className="container px-4">
@@ -14,10 +59,10 @@ const ContactSection: React.FC = () => {
           <div>
             <h2 className="section-title text-white">Get In Touch</h2>
             <p className="text-lg mb-10 opacity-80 max-w-md">
-              Interested in working together or have questions about prop rentals? 
+              Interested in working together or have questions about prop rentals?
               Reach out and let's create something amazing.
             </p>
-            
+
             <div className="space-y-6 mb-10">
               <div className="flex items-center gap-4">
                 <div className="bg-gold/20 p-3 rounded-full">
@@ -30,7 +75,7 @@ const ContactSection: React.FC = () => {
                   </a>
                 </div>
               </div>
-              
+
               <div className="flex items-center gap-4">
                 <div className="bg-gold/20 p-3 rounded-full">
                   <Phone className="text-gold" size={24} />
@@ -42,7 +87,7 @@ const ContactSection: React.FC = () => {
                   </a>
                 </div>
               </div>
-              
+
               <div className="flex items-center gap-4">
                 <div className="bg-gold/20 p-3 rounded-full">
                   <MapPin className="text-gold" size={24} />
@@ -53,7 +98,7 @@ const ContactSection: React.FC = () => {
                 </div>
               </div>
             </div>
-            
+
             <div>
               <p className="font-medium mb-3">Connect on Social</p>
               <div className="flex gap-4">
@@ -66,55 +111,101 @@ const ContactSection: React.FC = () => {
               </div>
             </div>
           </div>
-          
+
           {/* Contact Form */}
           <div className="bg-darkgray-light p-8 rounded-lg">
             <h3 className="text-2xl font-serif mb-6">Send a Message</h3>
-            <form className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <label htmlFor="name" className="text-sm">Your Name</label>
-                  <Input 
-                    id="name" 
-                    placeholder="John Doe" 
-                    className="bg-darkgray border-darkgray-light focus:border-gold/50"
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                      <FormItem className="space-y-2">
+                        <FormLabel className="text-sm">Your Name</FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="John Doe"
+                            className="bg-darkgray border-darkgray-light focus:border-gold/50"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem className="space-y-2">
+                        <FormLabel className="text-sm">Your Email</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="email"
+                            placeholder="johndoe@example.com"
+                            className="bg-darkgray border-darkgray-light focus:border-gold/50"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
                   />
                 </div>
-                <div className="space-y-2">
-                  <label htmlFor="email" className="text-sm">Your Email</label>
-                  <Input 
-                    id="email" 
-                    type="email" 
-                    placeholder="johndoe@example.com" 
-                    className="bg-darkgray border-darkgray-light focus:border-gold/50"
-                  />
-                </div>
-              </div>
-              
-              <div className="space-y-2">
-                <label htmlFor="subject" className="text-sm">Subject</label>
-                <Input 
-                  id="subject" 
-                  placeholder="How can I help you?" 
-                  className="bg-darkgray border-darkgray-light focus:border-gold/50"
+
+                <FormField
+                  control={form.control}
+                  name="subject"
+                  render={({ field }) => (
+                    <FormItem className="space-y-2">
+                      <FormLabel className="text-sm">Subject</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="How can I help you?"
+                          className="bg-darkgray border-darkgray-light focus:border-gold/50"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
                 />
-              </div>
-              
-              <div className="space-y-2">
-                <label htmlFor="message" className="text-sm">Your Message</label>
-                <Textarea 
-                  id="message" 
-                  placeholder="Tell me about your project..." 
-                  className="bg-darkgray border-darkgray-light focus:border-gold/50"
-                  rows={6}
+
+                <FormField
+                  control={form.control}
+                  name="message"
+                  render={({ field }) => (
+                    <FormItem className="space-y-2">
+                      <FormLabel className="text-sm">Your Message</FormLabel>
+                      <FormControl>
+                        <Textarea
+                          placeholder="Tell me about your project..."
+                          className="bg-darkgray border-darkgray-light focus:border-gold/50"
+                          rows={6}
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
                 />
-              </div>
-              
-              <Button className="w-full bg-gold hover:bg-gold-dark text-white">
-                <Send size={16} className="mr-2" />
-                Send Message
-              </Button>
-            </form>
+
+                <Button
+                  type="submit"
+                  disabled={submitting}
+                  className="w-full bg-gold hover:bg-gold-dark text-white"
+                >
+                  {submitting ? (
+                    <Loader2 size={16} className="mr-2 animate-spin" />
+                  ) : (
+                    <Send size={16} className="mr-2" />
+                  )}
+                  {submitting ? 'Sending...' : 'Send Message'}
+                </Button>
+              </form>
+            </Form>
           </div>
         </div>
       </div>
